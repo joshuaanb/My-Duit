@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     // Header
-    appTitle: 'FinanceFlow',
+    appTitle: 'MY DUIT',
     appSubtitle: 'Income & Expense Tracker',
     resetDemo: 'Load Demo Data',
     resetZero: 'Reset Figures (0)',
@@ -103,7 +103,7 @@ export const translations = {
 
   id: {
     // Header
-    appTitle: 'FinanceFlow',
+    appTitle: 'MY DUIT',
     appSubtitle: 'Pelacak Pemasukan & Pengeluaran',
     resetDemo: 'Muat Data Demo',
     resetZero: 'Reset Angka (0)',
