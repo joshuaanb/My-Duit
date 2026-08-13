@@ -24,13 +24,11 @@ export const EditTransactionModal = ({
   language,
   t
 }) => {
-  if (!isOpen || !transaction) return null;
-
-  const [type, setType] = useState(transaction.type);
-  const [amount, setAmount] = useState(transaction.amount.toString());
-  const [category, setCategory] = useState(transaction.category);
-  const [date, setDate] = useState(transaction.date);
-  const [notes, setNotes] = useState(transaction.notes || '');
+  const [type, setType] = useState(transaction?.type || 'expense');
+  const [amount, setAmount] = useState(transaction?.amount?.toString() || '');
+  const [category, setCategory] = useState(transaction?.category || '');
+  const [date, setDate] = useState(transaction?.date || '');
+  const [notes, setNotes] = useState(transaction?.notes || '');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -40,8 +38,11 @@ export const EditTransactionModal = ({
       setCategory(transaction.category);
       setDate(transaction.date);
       setNotes(transaction.notes || '');
+      setError('');
     }
   }, [transaction]);
+
+  if (!isOpen || !transaction) return null;
 
   const currencySymbol = CURRENCIES.find(c => c.code === currency)?.symbol || '$';
 

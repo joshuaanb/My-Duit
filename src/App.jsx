@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Header } from './components/Header';
 import { BalanceSummary } from './components/BalanceSummary';
 import { TransactionForm } from './components/TransactionForm';
@@ -45,6 +45,12 @@ export function App() {
   // Toast notification state
   const [toast, setToast] = useState(null);
 
+  // Refs that always mirror the latest state — used by the beforeunload flush
+  const transactionsRef = useRef([]);
+  const startingBalanceRef = useRef(0);
+  transactionsRef.current = transactions;
+  startingBalanceRef.current = startingBalance;
+
   // Translation helper function
   const t = (key) => {
     const dict = translations[language] || translations.en;
@@ -78,6 +84,17 @@ export function App() {
     } else {
       document.documentElement.classList.remove('dark');
     }
+  }, []);
+
+  // Safety-net: flush latest data to localStorage before the page unloads
+  // (covers hard refresh, tab close, browser exit, etc.)
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      saveTransactions(transactionsRef.current);
+      saveStartingBalance(startingBalanceRef.current);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, []);
 
   // Sync starting balance changes
@@ -126,7 +143,7 @@ export function App() {
 
   // Save Edit Transaction
   const handleSaveEdit = (editedTx) => {
-    const updated = transactions.map(t => t.id === editedTx.id ? editedTx : t);
+    const updated = transactions.map(tx => tx.id === editedTx.id ? editedTx : tx);
     setTransactions(updated);
     saveTransactions(updated);
     showToast(t('txUpdated'));
@@ -134,7 +151,7 @@ export function App() {
 
   // Delete Transaction
   const handleDeleteTransaction = (id) => {
-    const updated = transactions.filter(t => t.id !== id);
+    const updated = transactions.filter(tx => tx.id !== id);
     setTransactions(updated);
     saveTransactions(updated);
     showToast(t('txRemoved'), 'info');

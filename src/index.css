@@ -50,5 +50,5 @@
 
 /* Recharts override */
 .recharts-default-tooltip {
-  @apply !bg-slate-900 !border-slate-800 !rounded-xl !shadow-xl !text-slate-100 !p-3 !text-xs;
+  @apply bg-slate-900 border border-slate-800 rounded-xl shadow-xl text-slate-100 p-3 text-xs;
 }

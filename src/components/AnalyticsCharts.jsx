@@ -25,16 +25,16 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
     let totalExp = 0;
 
     transactions
-      .filter(t => {
-        if (t.type !== 'expense') return false;
+      .filter(tx => {
+        if (tx.type !== 'expense') return false;
         if (selectedMonth && selectedMonth !== 'all') {
-          return t.date && t.date.startsWith(selectedMonth);
+          return tx.date && tx.date.startsWith(selectedMonth);
         }
         return true;
       })
-      .forEach(t => {
-        const amt = Number(t.amount) || 0;
-        map[t.category] = (map[t.category] || 0) + amt;
+      .forEach(tx => {
+        const amt = Number(tx.amount) || 0;
+        map[tx.category] = (map[tx.category] || 0) + amt;
         totalExp += amt;
       });
 
@@ -53,18 +53,18 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
   const monthlyTrendData = useMemo(() => {
     const monthsMap = {};
 
-    transactions.forEach(t => {
-      if (!t.date || t.date.length < 7) return;
-      const monthKey = t.date.substring(0, 7); // YYYY-MM
+    transactions.forEach(tx => {
+      if (!tx.date || tx.date.length < 7) return;
+      const monthKey = tx.date.substring(0, 7); // YYYY-MM
       
       if (!monthsMap[monthKey]) {
         monthsMap[monthKey] = { monthKey, income: 0, expense: 0 };
       }
 
-      const amt = Number(t.amount) || 0;
-      if (t.type === 'income') {
+      const amt = Number(tx.amount) || 0;
+      if (tx.type === 'income') {
         monthsMap[monthKey].income += amt;
-      } else if (t.type === 'expense') {
+      } else if (tx.type === 'expense') {
         monthsMap[monthKey].expense += amt;
       }
     });
