@@ -172,7 +172,7 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
       </div>
 
       {/* Chart View Content */}
-      <div className="h-72 w-full">
+      <div className="h-56 sm:h-72 w-full">
         {chartType === 'bar' ? (
           monthlyTrendData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -201,9 +201,9 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
           )
         ) : (
           expenseByCategoryData.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full items-center">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 h-full items-start sm:items-center overflow-y-auto sm:overflow-visible">
               {/* Pie/Donut SVG */}
-              <div className="h-64 relative">
+              <div className="h-48 sm:h-64 w-full relative shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie

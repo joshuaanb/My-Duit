@@ -63,7 +63,7 @@ export const TransactionList = ({
           </p>
         </div>
       ) : (
-        <div className="space-y-2.5 max-h-[600px] overflow-y-auto pr-1">
+        <div className="space-y-2.5 max-h-[480px] sm:max-h-[600px] overflow-y-auto pr-1">
           {transactions.map((tx) => {
             const isIncome = tx.type === 'income';
             const isDeletingThis = deleteConfirmId === tx.id;
@@ -88,11 +88,11 @@ export const TransactionList = ({
                   </div>
 
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       <h4 className="font-semibold text-xs text-slate-800 dark:text-slate-200 truncate">
                         {tx.notes || getCategoryLabel(tx.category, language)}
                       </h4>
-                      <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${
+                      <span className={`hidden sm:inline-flex px-2 py-0.5 text-[10px] font-bold rounded-full shrink-0 ${
                         isIncome
                           ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/80 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50'
                           : 'bg-rose-50 text-rose-700 dark:bg-rose-950/80 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50'

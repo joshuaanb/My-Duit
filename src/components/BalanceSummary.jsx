@@ -153,7 +153,7 @@ export const BalanceSummary = ({
       </div>
 
       {/* Main Grid: Prominent Total Balance Card + Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
         
         {/* Card 1: Prominent Total Balance (Featured & Editable) */}
         <div className={`relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ${
@@ -190,7 +190,7 @@ export const BalanceSummary = ({
 
           {!isEditingBalance ? (
             <div className="mb-4">
-              <h3 className="text-3xl lg:text-4xl font-extrabold tracking-tight">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
                 {formatCurrency(totals.balance, currency)}
               </h3>
               <p className="text-xs text-white/70 mt-1 font-medium">
@@ -272,7 +272,7 @@ export const BalanceSummary = ({
 
             {!isEditingIncome ? (
               <>
-                <h3 className="text-2xl lg:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">
                   {formatCurrency(totals.income, currency)}
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -331,7 +331,7 @@ export const BalanceSummary = ({
                 <ArrowDownRight className="w-4 h-4" />
               </div>
             </div>
-            <h3 className="text-2xl lg:text-3xl font-extrabold text-rose-600 dark:text-rose-400 tracking-tight">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-rose-600 dark:text-rose-400 tracking-tight">
               {formatCurrency(totals.expense, currency)}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -341,7 +341,7 @@ export const BalanceSummary = ({
 
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
             <span>{t('highestExpense')}</span>
-            <span className="font-bold text-rose-600 dark:text-rose-400 truncate max-w-[120px]">
+            <span className="font-bold text-rose-600 dark:text-rose-400 truncate max-w-[80px] sm:max-w-[120px] text-right">
               {getCategoryLabel(topExpenseCategory.name, language)} ({formatCurrency(topExpenseCategory.amount, currency)})
             </span>
           </div>

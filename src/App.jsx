@@ -250,7 +250,7 @@ export function App() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-8 py-5 sm:py-8">
         
         {/* Prominent Balance & Financial Overview */}
         <BalanceSummary
@@ -275,10 +275,10 @@ export function App() {
         />
 
         {/* 2-Column Main Workspace */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
           
           {/* Left Column: Transaction Input Form (5 cols on lg) */}
-          <div className="lg:col-span-5 sticky top-20">
+          <div className="lg:col-span-5 lg:sticky lg:top-20">
             <TransactionForm
               onAddTransaction={handleAddTransaction}
               currency={currency}

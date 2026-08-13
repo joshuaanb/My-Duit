@@ -25,8 +25,8 @@ export const Header = ({
   t
 }) => {
   return (
-    <header className="sticky top-0 z-30 glass-panel border-b border-slate-200/80 dark:border-slate-800/80 px-4 lg:px-8 py-3 transition-colors">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <header className="sticky top-0 z-30 glass-panel border-b border-slate-200/80 dark:border-slate-800/80 px-3 sm:px-4 lg:px-8 py-3 transition-colors">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo & Name */}
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
@@ -67,10 +67,10 @@ export const Header = ({
         </div>
 
         {/* Right Header Toolbar */}
-        <div className="flex items-center flex-wrap gap-2 w-full sm:w-auto justify-end">
+        <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 w-full sm:w-auto justify-end sm:justify-end">
           
-          {/* Language Switcher Button (EN / ID) */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          {/* Language Switcher Button (EN / ID) — hidden on mobile (handled above) */}
+          <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200 dark:border-slate-700/60">
             <button
               onClick={() => setLanguage('en')}
               className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1 ${
@@ -95,11 +95,11 @@ export const Header = ({
 
           {/* Currency Selector */}
           <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200 dark:border-slate-700/60">
-            <DollarSign className="w-3.5 h-3.5 ml-1 text-slate-500 dark:text-slate-400" />
+            <DollarSign className="w-3.5 h-3.5 ml-1 text-slate-500 dark:text-slate-400 shrink-0" />
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-2 rounded-lg focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-2 rounded-lg focus:outline-none cursor-pointer max-w-[90px] sm:max-w-none"
             >
               {CURRENCIES.map((c) => (
                 <option key={c.code} value={c.code} className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
@@ -112,20 +112,20 @@ export const Header = ({
           {/* Reset Figures (0) Button */}
           <button
             onClick={onResetZero}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 rounded-xl border border-rose-200 dark:border-rose-800/60 transition-colors"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 rounded-xl border border-rose-200 dark:border-rose-800/60 transition-colors"
             title="Reset all expense and income figures to 0"
           >
-            <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
-            <span>{t('resetZero')}</span>
+            <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
+            <span className="hidden sm:inline">{t('resetZero')}</span>
           </button>
 
           {/* Load Demo Data Button */}
           <button
             onClick={onResetDemo}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700/60 transition-colors"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700/60 transition-colors"
             title="Load sample demo data"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+            <RotateCcw className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
             <span className="hidden md:inline">{t('resetDemo')}</span>
           </button>
 

@@ -60,15 +60,15 @@ export const TransactionFilters = ({
         </div>
 
         {/* Filter Controls Group */}
-        <div className="flex items-center flex-wrap gap-2">
+        <div className="flex items-center flex-wrap gap-1.5 sm:gap-2">
           
           {/* Type Filter */}
-          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-1 rounded-xl border border-slate-200 dark:border-slate-700/80">
-            <Filter className="w-3.5 h-3.5 text-slate-400 ml-1" />
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-1 rounded-xl border border-slate-200 dark:border-slate-700/80 min-w-0">
+            <Filter className="w-3.5 h-3.5 text-slate-400 ml-1 shrink-0" />
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-1 focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-1 focus:outline-none cursor-pointer max-w-[90px] sm:max-w-none"
             >
               <option value="all">{t('allTypes')}</option>
               <option value="income">{t('incomeOnly')}</option>
@@ -77,12 +77,12 @@ export const TransactionFilters = ({
           </div>
 
           {/* Category Filter */}
-          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-1 rounded-xl border border-slate-200 dark:border-slate-700/80">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 ml-1" />
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-1 rounded-xl border border-slate-200 dark:border-slate-700/80 min-w-0">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 ml-1 shrink-0" />
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-1 focus:outline-none cursor-pointer max-w-[130px] truncate"
+              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-1 focus:outline-none cursor-pointer max-w-[100px] sm:max-w-[130px] truncate"
             >
               <option value="all">{t('allCategories')}</option>
               {allCategories.map(cat => (
@@ -94,12 +94,12 @@ export const TransactionFilters = ({
           </div>
 
           {/* Sort By Selector */}
-          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-1 rounded-xl border border-slate-200 dark:border-slate-700/80">
-            <ArrowUpDown className="w-3.5 h-3.5 text-slate-400 ml-1" />
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-1 rounded-xl border border-slate-200 dark:border-slate-700/80 min-w-0">
+            <ArrowUpDown className="w-3.5 h-3.5 text-slate-400 ml-1 shrink-0" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-1 focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 py-1 pr-1 focus:outline-none cursor-pointer max-w-[90px] sm:max-w-none"
             >
               <option value="newest">{t('newestFirst')}</option>
               <option value="oldest">{t('oldestFirst')}</option>
