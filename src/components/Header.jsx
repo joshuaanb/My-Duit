@@ -67,7 +67,7 @@ export const Header = ({
         </div>
 
         {/* Right Header Toolbar */}
-        <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 w-full sm:w-auto justify-end sm:justify-end">
+        <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 w-full sm:w-auto justify-end overflow-x-auto">
           
           {/* Language Switcher Button (EN / ID) — hidden on mobile (handled above) */}
           <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200 dark:border-slate-700/60">

@@ -16,6 +16,53 @@ import { formatCurrency, getCategoryColor } from '../utils/formatters';
 import { getCategoryLabel } from '../utils/i18n';
 import { PieChart as PieIcon, BarChart2 } from 'lucide-react';
 
+// Custom Pie Chart Tooltip — defined outside component to avoid re-mount on every render
+const CustomPieTooltip = ({ active, payload, currency, t }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-slate-900 text-white p-3 rounded-xl border border-slate-700 shadow-xl text-xs font-medium">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.color }} />
+          <span className="font-bold">{data.name}</span>
+        </div>
+        <div className="text-slate-300">
+          {t('amount')}: <span className="font-bold text-white">{formatCurrency(data.value, currency)}</span>
+        </div>
+        <div className="text-slate-400 text-[11px]">
+          {t('share')}: <span className="font-bold text-emerald-400">{data.percentage}%</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
+// Custom Bar Chart Tooltip — defined outside component to avoid re-mount on every render
+const CustomBarTooltip = ({ active, payload, label, currency, t }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-slate-900 text-white p-3 rounded-xl border border-slate-700 shadow-xl text-xs font-medium space-y-1">
+        <div className="font-bold text-slate-300 pb-1 border-b border-slate-800">
+          {label}
+        </div>
+        {payload.map((entry, idx) => (
+          <div key={idx} className="flex items-center justify-between gap-4">
+            <span className="flex items-center gap-1.5" style={{ color: entry.color }}>
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
+              {entry.name}:
+            </span>
+            <span className="font-bold text-white">
+              {formatCurrency(entry.value, currency)}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
+
 export const AnalyticsCharts = ({ transactions, currency, selectedMonth, language, t }) => {
   const [chartType, setChartType] = useState('bar'); // 'bar' | 'pie'
 
@@ -83,52 +130,7 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
       });
   }, [transactions, language]);
 
-  // Custom Pie Chart Tooltip
-  const CustomPieTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-slate-900 text-white p-3 rounded-xl border border-slate-700 shadow-xl text-xs font-medium">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.color }} />
-            <span className="font-bold">{data.name}</span>
-          </div>
-          <div className="text-slate-300">
-            {t('amount')}: <span className="font-bold text-white">{formatCurrency(data.value, currency)}</span>
-          </div>
-          <div className="text-slate-400 text-[11px]">
-            {t('share')}: <span className="font-bold text-emerald-400">{data.percentage}%</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  // Custom Bar Chart Tooltip
-  const CustomBarTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-slate-900 text-white p-3 rounded-xl border border-slate-700 shadow-xl text-xs font-medium space-y-1">
-          <div className="font-bold text-slate-300 pb-1 border-b border-slate-800">
-            {label}
-          </div>
-          {payload.map((entry, idx) => (
-            <div key={idx} className="flex items-center justify-between gap-4">
-              <span className="flex items-center gap-1.5" style={{ color: entry.color }}>
-                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
-                {entry.name}:
-              </span>
-              <span className="font-bold text-white">
-                {formatCurrency(entry.value, currency)}
-              </span>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
+  // (Tooltip components moved above component to prevent re-mount on every render)
 
   return (
     <div className="glass-panel rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800/80 mb-8">
@@ -172,38 +174,41 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
       </div>
 
       {/* Chart View Content */}
-      <div className="h-56 sm:h-72 w-full">
+      <div className="w-full">
         {chartType === 'bar' ? (
           monthlyTrendData.length > 0 ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlyTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                <XAxis 
-                  dataKey="label" 
-                  tick={{ fontSize: 11 }} 
-                  stroke="#94a3b8" 
-                />
-                <YAxis 
-                  tick={{ fontSize: 10 }} 
-                  stroke="#94a3b8"
-                  tickFormatter={(val) => val >= 1000 ? `${val / 1000}k` : val}
-                />
-                <RechartsTooltip content={<CustomBarTooltip />} />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                <Bar dataKey="income" name={t('income')} fill="#10B981" radius={[6, 6, 0, 0]} maxBarSize={40} />
-                <Bar dataKey="expense" name={t('expense')} fill="#EF4444" radius={[6, 6, 0, 0]} maxBarSize={40} />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="h-56 sm:h-72">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={monthlyTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+                  <XAxis
+                    dataKey="label"
+                    tick={{ fontSize: 11 }}
+                    stroke="#94a3b8"
+                  />
+                  <YAxis
+                    tick={{ fontSize: 10 }}
+                    stroke="#94a3b8"
+                    tickFormatter={(val) => val >= 1000 ? `${val / 1000}k` : val}
+                  />
+                  <RechartsTooltip content={<CustomBarTooltip currency={currency} t={t} />} />
+                  <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                  <Bar dataKey="income" name={t('income')} fill="#10B981" radius={[6, 6, 0, 0]} maxBarSize={40} />
+                  <Bar dataKey="expense" name={t('expense')} fill="#EF4444" radius={[6, 6, 0, 0]} maxBarSize={40} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           ) : (
-            <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs">
+            <div className="h-56 sm:h-72 flex flex-col items-center justify-center text-slate-400 text-xs">
               {t('noTrendData')}
             </div>
           )
         ) : (
           expenseByCategoryData.length > 0 ? (
-            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 h-full items-start sm:items-center overflow-y-auto sm:overflow-visible">
+            /* On mobile: stacked column (auto height). On sm+: 2-col grid with fixed height */
+            <div className="flex flex-col sm:grid sm:grid-cols-2 sm:h-72 gap-4 items-start sm:items-center">
               {/* Pie/Donut SVG */}
-              <div className="h-48 sm:h-64 w-full relative shrink-0">
+              <div className="h-52 sm:h-full w-full relative shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -219,13 +224,13 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <RechartsTooltip content={<CustomPieTooltip />} />
+                    <RechartsTooltip content={<CustomPieTooltip currency={currency} t={t} />} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
 
               {/* Category Breakdown Table / Badges */}
-              <div className="space-y-2 overflow-y-auto max-h-60 pr-2">
+              <div className="space-y-2 overflow-y-auto max-h-52 sm:max-h-72 pr-2 w-full">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                   {t('expenseCategoryDistribution')}
                 </h4>
@@ -248,7 +253,7 @@ export const AnalyticsCharts = ({ transactions, currency, selectedMonth, languag
               </div>
             </div>
           ) : (
-            <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs">
+            <div className="h-56 sm:h-72 flex flex-col items-center justify-center text-slate-400 text-xs">
               {t('noExpenseData')}
             </div>
           )

@@ -38,7 +38,7 @@ export const TransactionList = ({
         {transactions.length > 0 && (
           <button
             onClick={() => {
-              if (window.confirm('Are you sure you want to delete all transactions?')) {
+              if (window.confirm(t('clearAllConfirm') || 'Are you sure you want to delete all transactions?')) {
                 onClearAll();
               }
             }}
@@ -78,7 +78,7 @@ export const TransactionList = ({
                 }`}
               >
                 {/* Left side: Category Icon + Description + Date */}
-                <div className="flex items-center gap-3.5 min-w-0">
+                <div className="flex items-center gap-3.5 min-w-0 flex-1">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                     isIncome
                       ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400'
@@ -107,7 +107,7 @@ export const TransactionList = ({
                 </div>
 
                 {/* Right side: Amount + Actions */}
-                <div className="flex items-center gap-3 shrink-0 ml-3">
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-2">
                   
                   <div className="text-right">
                     <div className={`font-bold text-sm flex items-center justify-end gap-0.5 ${

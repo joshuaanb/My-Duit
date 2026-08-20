@@ -81,6 +81,7 @@ export const translations = {
     noTransactionsFound: 'No transactions found',
     noTxDesc: 'Try adjusting your search or filter options, or add a new transaction using the form on the left.',
     deleteConfirm: 'Delete?',
+    clearAllConfirm: 'Are you sure you want to delete all transactions?',
     yes: 'Yes',
     no: 'No',
 
@@ -183,6 +184,7 @@ export const translations = {
     noTransactionsFound: 'Transaksi tidak ditemukan',
     noTxDesc: 'Coba ubah opsi pencarian atau filter, atau tambah transaksi baru menggunakan formulir di sebelah kiri.',
     deleteConfirm: 'Hapus?',
+    clearAllConfirm: 'Apakah Anda yakin ingin menghapus semua transaksi?',
     yes: 'Ya',
     no: 'Tidak',
 

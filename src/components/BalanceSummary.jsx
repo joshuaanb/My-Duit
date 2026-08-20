@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { formatCurrency } from '../utils/formatters';
 import { getCategoryLabel } from '../utils/i18n';
 import { CURRENCIES } from '../types/finance';
@@ -26,6 +26,11 @@ export const BalanceSummary = ({
 }) => {
   const [isEditingBalance, setIsEditingBalance] = useState(false);
   const [balanceInput, setBalanceInput] = useState(startingBalance.toString());
+
+  // Sync balanceInput when startingBalance prop resets externally (e.g., demo reset, clear all)
+  useEffect(() => {
+    setBalanceInput(startingBalance.toString());
+  }, [startingBalance]);
 
   const [isEditingIncome, setIsEditingIncome] = useState(false);
   const [incomeInput, setIncomeInput] = useState('');
@@ -341,7 +346,7 @@ export const BalanceSummary = ({
 
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
             <span>{t('highestExpense')}</span>
-            <span className="font-bold text-rose-600 dark:text-rose-400 truncate max-w-[80px] sm:max-w-[120px] text-right">
+            <span className="font-bold text-rose-600 dark:text-rose-400 truncate max-w-[110px] sm:max-w-[160px] text-right">
               {getCategoryLabel(topExpenseCategory.name, language)} ({formatCurrency(topExpenseCategory.amount, currency)})
             </span>
           </div>
