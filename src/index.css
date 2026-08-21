@@ -55,3 +55,30 @@
 .recharts-default-tooltip {
   @apply bg-slate-900 border border-slate-800 rounded-xl shadow-xl text-slate-100 p-3 text-xs;
 }
+
+/* Date input mobile & iOS Safari normalization */
+input[type="date"] {
+  min-width: 0;
+  max-width: 100%;
+  color-scheme: light;
+}
+
+.dark input[type="date"] {
+  color-scheme: dark;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.25em;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0;
+  margin-right: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}

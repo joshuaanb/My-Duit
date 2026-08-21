@@ -193,14 +193,14 @@ export const TransactionForm = ({ onAddTransaction, currency, language, t }) => 
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
             {t('date')}
           </label>
-          <div className="relative min-w-0">
-            <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none z-10" />
+          <div className="flex items-center gap-2 w-full px-3.5 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus-within:ring-2 focus-within:ring-emerald-500/50 transition-all">
+            <Calendar className="w-4 h-4 text-slate-400 shrink-0 pointer-events-none" />
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="w-full min-w-0 pl-10 pr-8 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-200 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer"
+              className="flex-1 min-w-0 bg-transparent text-slate-800 dark:text-slate-200 font-medium text-sm focus:outline-none cursor-pointer"
             />
           </div>
         </div>
